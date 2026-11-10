@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Radica una PQRSF o consulta el estado de tu solicitud en el Centro de Instrucción Aeronáutico Civil Elyon Yireh.">
+    <title>PQRSF | Elyon Yireh</title>
+    <style>
+        :root {
+            --azul-oscuro: #123B63;
+            --azul-principal: #1769AA;
+            --verde-inst: #36A66A;
+            --fondo: #F3F5F7;
+            --texto-gris: #64748B;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            color: var(--azul-oscuro);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        header {
+            padding: 1.5rem 1rem;
+            background: var(--azul-oscuro);
+            text-align: center;
+        }
+
+        .header-logo {
+            display: inline-flex;
+            width: min(280px, 85vw);
+            height: 80px;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 5px 15px;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .header-logo img {
+            display: block;
+            width: 250px;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        header h1 {
+            margin: 0.75rem 0 0;
+            color: #fff;
+            font-size: clamp(1.15rem, 3vw, 1.6rem);
+            font-weight: 600;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            padding: 3rem 1.25rem;
+            background: var(--fondo);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+            width: min(100%, 960px);
+            margin: 0 auto;
+        }
+
+        .card {
+            padding: 1.75rem;
+            border: 0;
+            border-top: 4px solid var(--azul-principal);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            margin: 0 0 0.75rem;
+            color: var(--azul-oscuro);
+            font-size: 1.35rem;
+        }
+
+        .card p {
+            margin: 0 0 1.25rem;
+            color: var(--texto-gris);
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px;
+            border: 0;
+            border-radius: 6px;
+            background: var(--azul-principal);
+            color: #fff;
+            font: inherit;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--azul-oscuro);
+        }
+
+        .btn:focus-visible,
+        input:focus-visible {
+            outline: 3px solid rgba(23, 105, 170, 0.3);
+            outline-offset: 2px;
+        }
+
+        .lookup-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--azul-oscuro);
+            font-weight: 600;
+        }
+
+        .lookup-controls {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .lookup-controls input {
+            min-width: 0;
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        .lookup-controls .btn {
+            flex-shrink: 0;
+        }
+
+        .lookup-message,
+        .result,
+        .error-message {
+            margin-top: 1.25rem;
+        }
+
+        .lookup-message {
+            color: var(--texto-gris);
+        }
+
+        .result {
+            padding-top: 1rem;
+            border-top: 1px solid #E2E8F0;
+            color: var(--texto-gris);
+            line-height: 1.6;
+        }
+
+        .result p {
+            margin: 0 0 0.65rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+            background: #E2E8F0;
+            color: var(--azul-oscuro);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .badge.received {
+            background: var(--azul-principal);
+            color: #fff;
+        }
+
+        .badge.resolved {
+            background: var(--verde-inst);
+            color: #fff;
+        }
+
+        .official-response {
+            margin-top: 0.75rem;
+            padding: 0.9rem 1rem;
+            border-left: 4px solid var(--verde-inst);
+            background: #F1F5F9;
+            color: var(--azul-oscuro);
+            white-space: pre-wrap;
+        }
+
+        .error-message {
+            padding: 0.85rem 1rem;
+            border: 1px solid #FECACA;
+            border-radius: 6px;
+            background: #FEF2F2;
+            color: #B91C1C;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        footer {
+            padding: 1.25rem 1rem;
+            background: var(--azul-oscuro);
+            color: #fff;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .header-logo {
+                height: 70px;
+                padding: 5px 10px;
+            }
+
+            main {
+                padding: 1.5rem 1rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 1.4rem;
+            }
+
+            .lookup-controls {
+                flex-direction: column;
+            }
+
+            .lookup-controls .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <img src="logo.webp" alt="Logo Elyon Yireh">
+        </div>
+        <h1>Centro De Instrucción Aeronáutico Civil Elyon Yireh</h1>
+    </header>
+
+    <main>
+        <div class="cards">
+            <section class="card" aria-labelledby="radicar-title">
+                <h2 id="radicar-title">Radicar una PQRSF</h2>
+                <p>Registra tu Petición, Queja, Reclamo, Sugerencia o Felicitación. Nuestro equipo de Calidad Organizacional gestionará tu solicitud a la brevedad posible.</p>
+                <a href="URL_DEL_GOOGLE_FORM_AQUI" target="_blank" rel="noopener noreferrer" class="btn">RADICAR PQRSF</a>
+            </section>
+
+            <section class="card" aria-labelledby="consultar-title">
+                <h2 id="consultar-title">Consultar Estado</h2>
+                <p>Ingresa tu número de documento de identidad para conocer el estado de tu solicitud radicada.</p>
+                <form class="lookup-form" id="lookup-form">
+                    <label for="documento">Número de documento</label>
+                    <div class="lookup-controls">
+                        <input id="documento" name="documento" type="number" placeholder="Ej: 10203040" min="1" step="1" required>
+                        <button class="btn" id="lookup-button" type="submit">Consultar</button>
+                    </div>
+                </form>
+                <p class="lookup-message" id="loading-message" role="status" hidden>Buscando información...</p>
+                <div class="error-message" id="error-message" role="alert" hidden></div>
+                <div class="result" id="result" aria-live="polite" hidden>
+                    <p><strong>Código Radicado:</strong> <span id="result-code"></span></p>
+                    <p><strong>Tipo de solicitud:</strong> <span id="result-type"></span></p>
+                    <p><strong>Estado:</strong> <span class="badge" id="result-status"></span></p>
+                    <div>
+                        <strong>Respuesta Oficial:</strong>
+                        <div class="official-response" id="result-response"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <span>Área de Calidad Organizacional</span> &middot; <span id="current-year"></span>
+    </footer>
+
+    <script>
+        const lookupForm = document.getElementById("lookup-form");
+        const documentInput = document.getElementById("documento");
+        const lookupButton = document.getElementById("lookup-button");
+        const loadingMessage = document.getElementById("loading-message");
+        const errorMessage = document.getElementById("error-message");
+        const result = document.getElementById("result");
+        const resultCode = document.getElementById("result-code");
+        const resultType = document.getElementById("result-type");
+        const resultStatus = document.getElementById("result-status");
+        const resultResponse = document.getElementById("result-response");
+
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+
+        function normalizedKey(value) {
+            return value
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, "");
+        }
+
+        function getField(record, aliases) {
+            const fields = new Map(
+                Object.entries(record).map(([key, value]) => [normalizedKey(key), value])
+            );
+
+            for (const alias of aliases) {
+                const value = fields.get(normalizedKey(alias));
+                if (value !== undefined && value !== null && value !== "") {
+                    return String(value);
+                }
+            }
+
+            return "";
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.hidden = false;
+        }
+
+        lookupForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (!lookupForm.reportValidity()) {
+                return;
+            }
+
+            const documentNumber = documentInput.value.trim();
+            loadingMessage.hidden = false;
+            errorMessage.hidden = true;
+            result.hidden = true;
+            lookupButton.disabled = true;
+
+            try {
+                const url = new URL("https://script.google.com/macros/s/AKfycbzbKGfrGxA57FNNyHwcBgJBvvhlSxhw4S6eXCZf0pLDFpICUnUrZ_80bmYunQOhEX67/exec");
+                url.searchParams.set("documento", documentNumber);
+
+                const response = await fetch(url, { method: "GET" });
+                const payload = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(payload?.mensaje || payload?.message || "No fue posible consultar la solicitud.");
+                }
+
+                if (payload?.error || payload?.success === false || payload?.exito === false) {
+                    throw new Error(payload.error || payload.mensaje || payload.message || "No se encontraron PQRSF.");
+                }
+
+                let record = payload?.data ?? payload?.pqrsf ?? payload?.resultado ?? payload;
+                if (Array.isArray(record)) {
+                    record = record[0];
+                }
+
+                if (!record || typeof record !== "object") {
+                    throw new Error(typeof record === "string" ? record : "No se encontraron PQRSF para este documento.");
+                }
+
+                const code = getField(record, ["codigoRadicado", "codigo", "radicado", "numeroRadicado"]);
+                const type = getField(record, ["tipoSolicitud", "tipoDeSolicitud", "tipo"]);
+                const status = getField(record, ["estado", "status"]);
+                const officialResponse = getField(record, ["respuestaOficial", "respuesta", "observacion"]);
+
+                if (!code && !type && !status && !officialResponse) {
+                    throw new Error("No se encontraron PQRSF para este documento.");
+                }
+
+                resultCode.textContent = code || "No disponible";
+                resultType.textContent = type || "No disponible";
+                resultStatus.textContent = status || "No disponible";
+                resultStatus.className = "badge";
+
+                const normalizedStatus = normalizedKey(status);
+                if (normalizedStatus === "resuelta") {
+                    resultStatus.classList.add("resolved");
+                } else if (normalizedStatus === "recibida") {
+                    resultStatus.classList.add("received");
+                }
+
+                resultResponse.textContent = officialResponse || "Sin respuesta oficial registrada.";
+                result.hidden = false;
+            } catch (error) {
+                showError(error instanceof Error ? error.message : "Ocurrió un error al consultar la solicitud.");
+            } finally {
+                loadingMessage.hidden = true;
+                lookupButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
