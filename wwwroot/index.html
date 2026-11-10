@@ -7,12 +7,14 @@
     <title>PQRSF | Centro De Instrucción Aeronáutico Civil Elyon Yireh</title>
     <style>
         :root {
-            --azul-oscuro: #123B63;
-            --azul-principal: #1769AA;
-            --verde-inst: #36A66A;
-            --fondo: #F3F5F7;
-            --texto-gris: #64748B;
+            color-scheme: light;
             font-family: Arial, Helvetica, sans-serif;
+            color: #263746;
+            background: #F4F6F8;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         * {
@@ -24,183 +26,273 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            color: var(--azul-oscuro);
             font-family: Arial, Helvetica, sans-serif;
         }
 
         header {
-            padding: 1.5rem 1rem;
-            background: var(--azul-oscuro);
-            text-align: center;
+            background: #123B63;
+            color: #fff;
+        }
+
+        .header-inner {
+            display: flex;
+            width: min(100% - 48px, 1200px);
+            min-height: 104px;
+            align-items: center;
+            gap: 28px;
+            margin: 0 auto;
         }
 
         .header-logo {
-            display: inline-flex;
-            width: min(280px, 85vw);
-            height: 80px;
+            display: flex;
+            width: 224px;
+            height: 68px;
+            flex: 0 0 224px;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding: 5px 15px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 2px;
             background: #fff;
         }
 
         .header-logo img {
             display: block;
-            width: 250px;
-            max-width: 100%;
-            height: auto;
+            width: 100%;
+            max-height: 100%;
             object-fit: contain;
         }
 
+        .header-title {
+            padding-left: 26px;
+            border-left: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
         header h1 {
-            margin: 0.75rem 0 0;
+            max-width: 760px;
+            margin: 0;
             color: #fff;
-            font-size: clamp(1.15rem, 3vw, 1.6rem);
-            font-weight: 600;
+            font-size: clamp(1rem, 2.2vw, 1.45rem);
+            font-weight: 700;
+            line-height: 1.35;
+            letter-spacing: 0.035em;
+            text-transform: uppercase;
         }
 
         main {
             flex: 1;
             width: 100%;
-            padding: 3rem 1.25rem;
-            background: var(--fondo);
+            padding: 52px 24px 64px;
+            background: #F4F6F8;
+        }
+
+        .portal {
+            width: min(100%, 1200px);
+            margin: 0 auto;
+        }
+
+        .portal-heading {
+            margin-bottom: 26px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #D1D5DB;
+        }
+
+        .portal-heading p {
+            margin: 0 0 7px;
+            color: #1769AA;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        .portal-heading h2 {
+            margin: 0;
+            color: #123B63;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            line-height: 1.25;
         }
 
         .cards {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1.5rem;
-            width: min(100%, 960px);
-            margin: 0 auto;
+            align-items: stretch;
+            gap: 24px;
         }
 
         .card {
-            padding: 1.75rem;
-            border: 0;
-            border-top: 4px solid var(--azul-principal);
-            border-radius: 8px;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            min-height: 330px;
+            flex-direction: column;
+            padding: 32px;
+            border: 1px solid #D1D5DB;
+            border-top: 4px solid #123B63;
+            border-radius: 2px;
+            background: #FFFFFF;
         }
 
         .card h2 {
-            margin: 0 0 0.75rem;
-            color: var(--azul-oscuro);
+            margin: 0 0 12px;
+            color: #123B63;
             font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.3;
         }
 
         .card p {
-            margin: 0 0 1.25rem;
-            color: var(--texto-gris);
-            line-height: 1.6;
+            margin: 0 0 22px;
+            color: #4B5563;
+            font-size: 1rem;
+            line-height: 1.65;
         }
 
         .btn {
-            display: inline-block;
-            padding: 12px;
-            border: 0;
-            border-radius: 6px;
-            background: var(--azul-principal);
+            display: inline-flex;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border: 1px solid #123B63;
+            border-radius: 2px;
+            background: #123B63;
             color: #fff;
-            font: inherit;
+            font: 700 0.95rem Arial, Helvetica, sans-serif;
+            letter-spacing: 0.025em;
             text-align: center;
             text-decoration: none;
             cursor: pointer;
+            transition: background-color 120ms ease, border-color 120ms ease;
         }
 
-        .btn:hover {
-            background: var(--azul-oscuro);
+        .btn:hover:not(:disabled) {
+            border-color: #0B2C4A;
+            background: #0B2C4A;
+        }
+
+        .btn:disabled {
+            cursor: wait;
+            opacity: 0.7;
         }
 
         .btn:focus-visible,
         input:focus-visible {
-            outline: 3px solid rgba(23, 105, 170, 0.3);
+            outline: 3px solid #1769AA;
             outline-offset: 2px;
+        }
+
+        .card > .btn {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .lookup-form {
+            margin-top: auto;
         }
 
         .lookup-form label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--azul-oscuro);
-            font-weight: 600;
+            margin-bottom: 8px;
+            color: #263746;
+            font-size: 0.95rem;
+            font-weight: 700;
         }
 
         .lookup-controls {
             display: flex;
-            gap: 0.75rem;
+            gap: 10px;
         }
 
         .lookup-controls input {
             min-width: 0;
+            min-height: 48px;
             flex: 1;
-            padding: 12px;
-            border: 1px solid #CBD5E1;
-            border-radius: 6px;
-            font: inherit;
+            padding: 11px 12px;
+            border: 1px solid #9CA3AF;
+            border-radius: 2px;
+            background: #fff;
+            color: #263746;
+            font: 1rem Arial, Helvetica, sans-serif;
+        }
+
+        .lookup-controls input:focus {
+            border: 2px solid #1769AA;
+            padding: 10px 11px;
         }
 
         .lookup-controls .btn {
-            flex-shrink: 0;
+            flex: 0 0 auto;
+            background: #1769AA;
+            border-color: #1769AA;
+        }
+
+        .lookup-controls .btn:hover:not(:disabled) {
+            background: #123B63;
+            border-color: #123B63;
         }
 
         .lookup-message,
         .result,
         .error-message {
-            margin-top: 1.25rem;
+            margin-top: 20px;
         }
 
         .lookup-message {
-            color: var(--texto-gris);
+            color: #4B5563;
         }
 
         .result {
-            padding-top: 1rem;
-            border-top: 1px solid #E2E8F0;
-            color: var(--texto-gris);
+            padding-top: 18px;
+            border-top: 1px solid #D1D5DB;
+            color: #4B5563;
             line-height: 1.6;
         }
 
         .result p {
-            margin: 0 0 0.65rem;
+            margin: 0 0 10px;
         }
 
         .badge {
             display: inline-block;
-            padding: 0.2rem 0.65rem;
-            border-radius: 999px;
-            background: #E2E8F0;
-            color: var(--azul-oscuro);
-            font-size: 0.9rem;
-            font-weight: 600;
+            padding: 3px 8px;
+            border: 1px solid #D1D5DB;
+            border-radius: 2px;
+            background: #F4F6F8;
+            color: #123B63;
+            font-size: 0.88rem;
+            font-weight: 700;
         }
 
         .badge.received {
-            background: var(--azul-principal);
+            border-color: #1769AA;
+            background: #1769AA;
             color: #fff;
         }
 
         .badge.resolved {
-            background: var(--verde-inst);
+            border-color: #287348;
+            background: #287348;
             color: #fff;
         }
 
         .official-response {
-            margin-top: 0.75rem;
-            padding: 0.9rem 1rem;
-            border-left: 4px solid var(--verde-inst);
-            background: #F1F5F9;
-            color: var(--azul-oscuro);
+            margin-top: 8px;
+            padding: 12px 14px;
+            border: 1px solid #D1D5DB;
+            border-left: 3px solid #1769AA;
+            background: #F4F6F8;
+            color: #263746;
             white-space: pre-wrap;
         }
 
         .error-message {
-            padding: 0.85rem 1rem;
-            border: 1px solid #FECACA;
-            border-radius: 6px;
-            background: #FEF2F2;
-            color: #B91C1C;
+            padding: 12px 14px;
+            border: 1px solid #DCA3A3;
+            border-radius: 2px;
+            background: #FFF7F7;
+            color: #8A1C1C;
+            line-height: 1.5;
         }
 
         [hidden] {
@@ -208,20 +300,91 @@
         }
 
         footer {
-            padding: 1.25rem 1rem;
-            background: var(--azul-oscuro);
-            color: #fff;
-            text-align: center;
+            padding: 20px 24px;
+            background: #123B63;
+            color: #E5EAF0;
+            font-size: 0.85rem;
         }
 
-        @media (max-width: 640px) {
+        .footer-inner {
+            display: flex;
+            width: min(100%, 1200px);
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0 auto;
+        }
+
+        footer span:first-child {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        @media (max-width: 700px) {
+            .header-inner {
+                width: min(100% - 32px, 1200px);
+                min-height: 92px;
+                gap: 16px;
+            }
+
             .header-logo {
-                height: 70px;
-                padding: 5px 10px;
+                width: 170px;
+                height: 58px;
+                flex-basis: 170px;
+            }
+
+            .header-title {
+                padding-left: 16px;
+            }
+
+            header h1 {
+                font-size: 0.95rem;
             }
 
             main {
-                padding: 1.5rem 1rem;
+                padding: 36px 20px 44px;
+            }
+
+            .cards {
+                gap: 16px;
+            }
+
+            .card {
+                min-height: 340px;
+                padding: 24px;
+            }
+
+            .lookup-controls {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .header-inner {
+                min-height: auto;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px 0;
+            }
+
+            .header-logo {
+                width: 160px;
+                height: 52px;
+                flex-basis: auto;
+            }
+
+            .header-title {
+                padding: 0;
+                border: 0;
+            }
+
+            header h1 {
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 28px 16px 36px;
             }
 
             .cards {
@@ -229,63 +392,79 @@
             }
 
             .card {
-                padding: 1.4rem;
-            }
-
-            .lookup-controls {
-                flex-direction: column;
+                min-height: 300px;
+                padding: 24px;
             }
 
             .lookup-controls .btn {
                 width: 100%;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 7px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-logo">
-            <img src="logo.webp" alt="Logo Elyon Yireh">
+        <div class="header-inner">
+            <div class="header-logo">
+                <img src="logo.webp" alt="Logo Elyon Yireh">
+            </div>
+            <div class="header-title">
+                <h1>Centro de Instrucción Aeronáutico Civil Elyon Yireh</h1>
+            </div>
         </div>
-        <h1>Centro De Instrucción Aeronáutico Civil Elyon Yireh</h1>
     </header>
 
     <main>
-        <div class="cards">
-            <section class="card" aria-labelledby="radicar-title">
-                <h2 id="radicar-title">Radicar una PQRSF</h2>
-                <p>Registra tu Petición, Queja, Reclamo, Sugerencia o Felicitación. Nuestro equipo de Calidad Organizacional gestionará tu solicitud a la brevedad posible.</p>
-                <a href="URL_DEL_GOOGLE_FORM_AQUI" target="_blank" rel="noopener noreferrer" class="btn">RADICAR PQRSF</a>
-            </section>
+        <div class="portal">
+            <div class="portal-heading">
+                <p>Atención al ciudadano</p>
+                <h2>Portal de PQRSF</h2>
+            </div>
+            <div class="cards">
+                <section class="card" aria-labelledby="radicar-title">
+                    <h2 id="radicar-title">Radicar una PQRSF</h2>
+                    <p>Registra tu Petición, Queja, Reclamo, Sugerencia o Felicitación. Nuestro equipo de Calidad Organizacional gestionará tu solicitud a la brevedad posible.</p>
+                    <a href="URL_DEL_GOOGLE_FORM_AQUI" target="_blank" rel="noopener noreferrer" class="btn">RADICAR PQRSF</a>
+                </section>
 
-            <section class="card" aria-labelledby="consultar-title">
-                <h2 id="consultar-title">Consultar Estado</h2>
-                <p>Ingresa tu número de documento de identidad para conocer el estado de tu solicitud radicada.</p>
-                <form class="lookup-form" id="lookup-form">
-                    <label for="documento">Número de documento</label>
-                    <div class="lookup-controls">
-                        <input id="documento" name="documento" type="number" placeholder="Ej: 10203040" min="1" step="1" required>
-                        <button class="btn" id="lookup-button" type="submit">Consultar</button>
+                <section class="card" aria-labelledby="consultar-title">
+                    <h2 id="consultar-title">Consultar Estado</h2>
+                    <p>Ingresa tu número de documento de identidad para conocer el estado de tu solicitud radicada.</p>
+                    <form class="lookup-form" id="lookup-form">
+                        <label for="documento">Número de documento</label>
+                        <div class="lookup-controls">
+                            <input id="documento" name="documento" type="number" placeholder="Ej: 10203040" min="1" step="1" required>
+                            <button class="btn" id="lookup-button" type="submit">Consultar</button>
+                        </div>
+                    </form>
+                    <p class="lookup-message" id="loading-message" role="status" hidden>Buscando información...</p>
+                    <div class="error-message" id="error-message" role="alert" hidden></div>
+                    <div class="result" id="result" aria-live="polite" hidden>
+                        <p><strong>Código Radicado:</strong> <span id="result-code"></span></p>
+                        <p><strong>Tipo de solicitud:</strong> <span id="result-type"></span></p>
+                        <p><strong>Estado:</strong> <span class="badge" id="result-status"></span></p>
+                        <div>
+                            <strong>Respuesta Oficial:</strong>
+                            <div class="official-response" id="result-response"></div>
+                        </div>
                     </div>
-                </form>
-                <p class="lookup-message" id="loading-message" role="status" hidden>Buscando información...</p>
-                <div class="error-message" id="error-message" role="alert" hidden></div>
-                <div class="result" id="result" aria-live="polite" hidden>
-                    <p><strong>Código Radicado:</strong> <span id="result-code"></span></p>
-                    <p><strong>Tipo de solicitud:</strong> <span id="result-type"></span></p>
-                    <p><strong>Estado:</strong> <span class="badge" id="result-status"></span></p>
-                    <div>
-                        <strong>Respuesta Oficial:</strong>
-                        <div class="official-response" id="result-response"></div>
-                    </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </main>
 
     <footer>
-        <span>Centro De Instrucción Aeronáutico Civil Elyon Yireh</span> &middot;
-        <span>Área de Calidad Organizacional</span> &middot; <span id="current-year"></span>
+        <div class="footer-inner">
+            <span>Centro de Instrucción Aeronáutico Civil Elyon Yireh</span>
+            <span>Área de Calidad Organizacional</span>
+            <span id="current-year"></span>
+        </div>
     </footer>
 
     <script>
