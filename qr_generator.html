@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador QR Institucional</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #F4F6F8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #FFFFFF;
+            padding: 40px;
+            border: 1px solid #D1D5DB;
+            border-radius: 4px; /* Estilo Senior */
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .titulo-institucional {
+            color: #123B63; /* Azul institucional */
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .instruccion {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #6B7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div id="qrcode"></div>
+        <p class="titulo-institucional">Centro de Instrucción Aeronáutico Civil Elyon Yireh</p>
+        <p class="instruccion">Haz clic derecho sobre el código QR y selecciona "Guardar imagen como..."</p>
+    </div>
+
+    <script>
+        // Nivel H: Alta tolerancia a fallos (ideal para impresión)
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "https://pqr-aeronautico-elyon.onrender.com/",
+            width: 400,
+            height: 400,
+            colorDark : "#123B63", /* Azul institucional */
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    </script>
+</body>
+</html>
